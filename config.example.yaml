@@ -65,3 +65,30 @@ template:
   #   - 1920x1080 (horizontal/landscape): image_film.html, image_full.html, etc.
   # See templates/ directory for all available templates
   default_template: "1080x1920/image_default.html"
+
+# ==================== Novel Pipeline Configuration ====================
+# Configuration for novel chapter video generation
+novel_pipeline:
+  # Character consistency settings
+  character_consistency:
+    enabled: true
+    reference_dir: "characters/"  # Directory for character reference images
+    ip_adapter_strength: 0.7  # Reference image influence strength (if IP-Adapter is used)
+  
+  # Default voice mappings for characters
+  default_voices:
+    male_young: "edge-tts-zh-CN-YunxiNeural"  # Young male voice (e.g., Zhang Zixuan)
+    female_young: "edge-tts-zh-CN-XiaoxiaoNeural"  # Young female voice (e.g., Su Wanqing)
+    male_old: "edge-tts-zh-CN-YunjianNeural"  # Older male voice
+    female_old: "edge-tts-zh-CN-XiaoyiNeural"  # Older female voice
+  
+  # Special effects configuration (for Taoist/magic effects)
+  special_effects:
+    golden_light: "effects/golden_light.mp4"  # Golden light effect
+    talisman_burn: "effects/talisman_burn.mp4"  # Talisman burning animation
+    ghost_silhouette: "effects/ghost_silhouette.mp4"  # Ghost silhouette effect
+  
+  # Chapter parser settings
+  chapter_parser:
+    max_scene_duration: 30  # Maximum duration per scene (seconds)
+    target_video_duration: 120  # Target total video duration (seconds)

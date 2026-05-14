@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="template:media-width" content="1024">
+    <meta name="template:media-height" content="1024">
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'PingFang SC', 'Source Han Sans', 'Microsoft YaHei', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-container {
+            width: 1080px;
+            height: 1920px;
+            padding: 60px 50px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Background decorations */
+        .bg-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .bg-circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+        }
+        
+        .bg-circle-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            left: -80px;
+        }
+        
+        /* Chapter title */
+        .chapter-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+        
+        /* Scene description */
+        .scene-description {
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.85);
+            text-align: center;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+        
+        /* Dialog container */
+        .dialog-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            overflow: hidden;
+        }
+        
+        /* Dialog bubble */
+        .dialog-bubble {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dialog-bubble.left {
+            flex-direction: row;
+        }
+        
+        .dialog-bubble.right {
+            flex-direction: row-reverse;
+        }
+        
+        /* Character avatar */
+        .character-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .character-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        /* Dialog content */
+        .dialog-content {
+            flex: 1;
+            max-width: 750px;
+        }
+        
+        .dialog-bubble.left .dialog-content {
+            text-align: left;
+        }
+        
+        .dialog-bubble.right .dialog-content {
+            text-align: right;
+        }
+        
+        /* Character name */
+        .character-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .dialog-bubble.right .character-name {
+            color: #f093fb;
+        }
+        
+        /* Dialog text */
+        .dialog-text {
+            font-size: 34px;
+            color: #ffffff;
+            line-height: 1.7;
+            padding: 20px 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dialog-bubble.left .dialog-text {
+            border-top-left-radius: 5px;
+        }
+        
+        .dialog-bubble.right .dialog-text {
+            border-top-right-radius: 5px;
+        }
+        
+        /* Emotion indicator */
+        .emotion-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Scene number */
+        .scene-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Background decorations -->
+    <div class="bg-decoration">
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+    </div>
+    
+    <div class="page-container">
+        <!-- Scene number -->
+        <div class="scene-number">场景 {{scene_id}}</div>
+        
+        <!-- Chapter title -->
+        <div class="chapter-title">{{title}}</div>
+        
+        <!-- Scene description -->
+        <div class="scene-description">{{scene_description}}</div>
+        
+        <!-- Dialog container -->
+        <div class="dialog-container">
+            {{#dialogues}}
+            <div class="dialog-bubble {{#is_left}}left{{/is_left}}{{^is_left}}right{{/is_left}}">
+                <div class="character-avatar">
+                    {{#character_images}}{{role}}{{/character_images}}
+                    {{^character_images}}{{role.0}}{{/character_images}}
+                </div>
+                <div class="dialog-content">
+                    <div class="character-name">{{role}}</div>
+                    <div class="dialog-text">{{text}}</div>
+                </div>
+            </div>
+            {{/dialogues}}
+        </div>
+        
+        <!-- Emotion indicator -->
+        {{#emotion}}
+        <div class="emotion-indicator">{{emotion}}</div>
+        {{/emotion}}
+    </div>
+</body>
+</html>

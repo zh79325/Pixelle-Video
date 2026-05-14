@@ -53,8 +53,14 @@ def main():
         icon="📚"
     )
     
+    novel_page = st.Page(
+        "pages/3_📖_Novel.py",
+        title="Novel Chapter",
+        icon="📖"
+    )
+    
     # Set up navigation and run
-    pg = st.navigation([home_page, history_page])
+    pg = st.navigation([home_page, history_page, novel_page])
     pg.run()
 
 
